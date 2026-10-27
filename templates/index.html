@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FlaskGPT — Assistant IA</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-800">
+    <main class="mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-6">
+
+        <header class="mb-6 flex flex-wrap items-center justify-between gap-4">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight text-indigo-700">
+                    FlaskGPT
+                </h1>
+                <p class="mt-1 text-sm text-slate-500">
+                    Votre assistant IA intelligent
+                </p>
+            </div>
+
+            <button id="new-chat" type="button"
+                    class="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-medium hover:bg-slate-100">
+                + Nouvelle conversation
+            </button>
+        </header>
+
+        <section class="mb-5 rounded-2xl border border-slate-200 bg-white p-4">
+            <label for="domain"
+                   class="mb-2 block text-sm font-semibold text-slate-700">
+                Domaine de la conversation
+            </label>
+
+            <select id="domain" name="domain"
+                    class="w-full rounded-xl border border-slate-300 bg-white px-3 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+                <option value="general">Général</option>
+                <option value="informatique">Informatique</option>
+                <option value="finance">Finance</option>
+                <option value="analyse_donnees">Analyse de données</option>
+            </select>
+
+            <p class="mt-2 text-xs text-slate-500">
+                Choisissez le domaine pour adapter les réponses de l'assistant.
+            </p>
+        </section>
+
+        <div id="chat-template"
+             class="mb-4 hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="message break-words leading-relaxed"></div>
+        </div>
+
+        <div id="gpt-output" class="flex-1 space-y-3"
+             aria-live="polite"></div>
+
+        <form id="prompt-form"
+              class="sticky bottom-0 mt-6 flex gap-3 border-t border-slate-200 bg-slate-50 py-4">
+            <label for="prompt" class="sr-only">Votre message</label>
+
+            <input id="prompt" name="prompt" type="text" required
+                   autocomplete="off"
+                   placeholder="Posez votre question..."
+                   class="min-w-0 flex-1 rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+
+            <button type="submit"
+                    class="rounded-xl bg-indigo-600 px-5 py-3 font-medium text-white hover:bg-indigo-700 disabled:cursor-wait disabled:opacity-50">
+                Envoyer
+            </button>
+        </form>
+
+        <p id="status" class="pb-3 text-sm text-slate-500" role="status"></p>
+    </main>
+</body>
+</html>
